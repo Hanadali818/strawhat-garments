@@ -4,7 +4,15 @@ import {getAuth,
     signInWithPopup, 
     GoogleAuthProvider,
 }   from 'firebase/auth';
-import { get } from 'firebase/database';
+import { 
+    getFirestore,
+    doc,
+    getDoc,
+    setDoc,
+} from 'firebase/firestore';
+import { useActionData } from 'react-router-dom';
+
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyC56LSM4UdYeYw-LMaV9tDFstU9wUFdWVA",
@@ -26,3 +34,11 @@ provider.setCustomParameters({
 
 export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth,provider);
+
+export const db = getFirestore();
+
+export const createUserDocumentFromAuth = async (userAuth) => {
+    const userDocRef = doc(db,'users', userAuth.uid);
+
+    console.log(userDocRef)
+}
