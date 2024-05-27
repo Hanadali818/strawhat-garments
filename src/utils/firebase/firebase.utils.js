@@ -11,9 +11,6 @@ import {
     getDoc,
     setDoc,
 } from 'firebase/firestore';
-import { useActionData } from 'react-router-dom';
-
-
 
 const firebaseConfig = {
     apiKey: "AIzaSyC56LSM4UdYeYw-LMaV9tDFstU9wUFdWVA",
