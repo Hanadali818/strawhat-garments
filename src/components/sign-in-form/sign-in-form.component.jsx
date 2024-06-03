@@ -5,8 +5,9 @@ import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 
 import { 
-    createAuthUserWithEmailAndPassword, 
-    createUserDocumentFromAuth
+    signInWithGooglePopup, 
+    createUserDocumentFromAuth,
+    signInAuthUserWithEmailAndPassword,
 } from "../../utils/firebase/firebase.utils";
 
 import './sign-in-form.styles.scss'
@@ -20,18 +21,26 @@ const defaultFormFields = {
 const SignInForm = () => {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { email, password} = formFields;
-    
-    console.log(formFields);
+
 
     const resetFormFields = () => {
         setFormFields(defaultFormFields);
+    }
+
+    const signInWithGoogle = async () => {
+        const {user} =  await signInWithGooglePopup();
+        await createUserDocumentFromAuth(user);
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         try {
-
+            const response = await signInAuthUserWithEmailAndPassword(
+                email, 
+                password
+            );
+            console.log(response)
             resetFormFields();
           } catch (error) {
 
@@ -69,7 +78,14 @@ const SignInForm = () => {
                     value={password}
                 />
 
-                <Button type="submit">Sign In</Button>          
+                
+                <div className="buttons-container"> 
+                    <Button type="submit">Sign In</Button> 
+                    <Button  buttonType='google' onClick={signInWithGoogle} >
+                        Google sign in
+                    </Button>
+                </div>
+                         
             </form>
         </div>
     )
