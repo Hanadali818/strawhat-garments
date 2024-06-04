@@ -43,6 +43,10 @@ const SignInForm = () => {
             console.log(response)
             resetFormFields();
           } catch (error) {
+            if(error.code === 'auth/invalid-credential'){
+                alert('Incorrect password or email')
+            }
+            console.log(error);
 
           }
         };
@@ -81,7 +85,7 @@ const SignInForm = () => {
                 
                 <div className="buttons-container"> 
                     <Button type="submit">Sign In</Button> 
-                    <Button  buttonType='google' onClick={signInWithGoogle} >
+                    <Button type='button' buttonType='google' onClick={signInWithGoogle} >
                         Google sign in
                     </Button>
                 </div>
