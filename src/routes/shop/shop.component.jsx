@@ -4,8 +4,6 @@ import CategoriesPreview from '../categories-preview/categories-preview.componen
 import Category from '../category/category.comonent';
 
 
-import './shop.styles.scss'
-
 const Shop = () => {
     return (
         <div className="shop-container">
